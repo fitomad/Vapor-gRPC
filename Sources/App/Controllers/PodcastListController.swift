@@ -11,7 +11,9 @@ import Vapor
 struct PodcastListController: RouteCollection {
     /// Register routes to be managed by this controller
     func boot(routes: RoutesBuilder) throws {
+        let podcastListRoutes = routes.grouped("podcasts")
         
+        podcastListRoutes.get(use: index)
     }
     
     // MARK: - Operations -
