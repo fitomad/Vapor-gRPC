@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service PodcastService {
+    rpc FetchPodcasts (Empty) return (PodcastList) {}
+}
+
+message Podcast {
+    
+}
+
+message PodcastList {
+    repeated Podcast podcasts = 1;
+}
