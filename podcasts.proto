@@ -1,11 +1,13 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 service PodcastService {
-    rpc FetchPodcasts (Empty) return (PodcastList) {}
+    rpc FetchPodcasts (google.protobuf.Empty) returns (PodcastList) {}
 }
 
 message Podcast {
-    
+    string title = 1;
 }
 
 message PodcastList {
