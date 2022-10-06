@@ -8,6 +8,11 @@ service PodcastService {
 
 message Podcast {
     string title = 1;
+    string artist = 2;
+    string artworkURL = 3;
+    string appleURL = 4;
+    string appleID = 5;
+    repeated string genres = 6;
 }
 
 message PodcastList {

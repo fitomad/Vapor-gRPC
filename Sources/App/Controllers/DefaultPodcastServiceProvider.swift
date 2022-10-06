@@ -12,12 +12,8 @@ import GRPC
 import SwiftProtobuf
 import NIOCore
 
-final class DefaultPodcastServiceProvider: PodcastServiceProvider {
-    var interceptors: PodcastServiceServerInterceptorFactoryProtocol?
-    
-    func fetchPodcasts(request: SwiftProtobuf.Google_Protobuf_Empty, context: GRPC.StatusOnlyCallContext) -> NIOCore.EventLoopFuture<PodcastList> {
-        
+final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
+    func fetchPodcasts(request: SwiftProtobuf.Google_Protobuf_Empty, context: GRPC.GRPCAsyncServerCallContext) async throws -> PodcastList {
+        return PodcastList()
     }
-    
-
 }
