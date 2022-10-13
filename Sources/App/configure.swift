@@ -5,6 +5,9 @@ import Vapor
 
 // configures your application
 public func configure(_ app: Application) throws {
+    // Registramos el servidor gRPC
+    app.servers.use(.gRPCServer)
+    
     // uncomment to serve files from /Public folder
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
@@ -14,10 +17,8 @@ public func configure(_ app: Application) throws {
 
     app.migrations.add(CreatePodcastDTO())
 
-    app.views.use(.leaf)
-
-    
+    //app.views.use(.leaf)
 
     // register routes
-    try routes(app)
+    //try routes(app)
 }
