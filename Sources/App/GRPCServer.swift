@@ -48,7 +48,7 @@ public class GRPCServer: Vapor.Server {
     let group = application.eventLoopGroup
     let server = GRPC.Server.insecure(group: group)
       .withLogger(logger)
-      .withServiceProviders([ DefaultPodcastServiceProvider() ])
+      .withServiceProviders([ DefaultPodcastServiceProvider(self.application) ])
       .bind(host: self.host, port: self.port)
       
     server.map {
