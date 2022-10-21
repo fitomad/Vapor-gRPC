@@ -9,7 +9,7 @@ import Foundation
 import Fluent
 
 struct CreatePodcastDTO: AsyncMigration {
-    static let schema = "podcast"
+    static let schema = "PodcastCollection"
     
     func revert(on database: Database) async throws {
         try await database.schema(CreatePodcastDTO.schema)
@@ -20,6 +20,7 @@ struct CreatePodcastDTO: AsyncMigration {
         try await database.schema(CreatePodcastDTO.schema)
             .id()
             .field("title", .string, .required)
+            .field("artist", .string, .required)
             .create()
     }
     
