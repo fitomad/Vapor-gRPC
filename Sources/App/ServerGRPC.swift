@@ -4,7 +4,7 @@ import Vapor
 import Logging
 
 public extension Application.Servers.Provider {
-    static var gRPCServer: Application.Servers.Provider {
+    static var gRPCServer: Self {
         return Self {
             $0.servers.use { app in
                 ServerGRPC(application: app)
