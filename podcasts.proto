@@ -22,4 +22,8 @@ message PodcastList {
 
 message PodcastRequest {
     string title = 1;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5a46776fdf5f4b1fca86d3c0d627f91360086f6e

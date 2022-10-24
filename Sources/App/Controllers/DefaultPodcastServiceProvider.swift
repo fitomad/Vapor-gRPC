@@ -22,11 +22,15 @@ final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
         self.repository = DefaultPodcastRepository(for: app.db)
     }
     
-    func fetchPodcasts(request: SwiftProtobuf.Google_Protobuf_Empty, context: GRPC.GRPCAsyncServerCallContext) async throws -> PodcastList {
+    func fetchPodcasts(request: Google_Protobuf_Empty, context: GRPCAsyncServerCallContext) async throws -> PodcastList {
         let podcasts = try await repository.fetchPodcasts()
         
         var list = PodcastList()
         list.podcasts = podcasts
+        
+        if list.podcasts.isEmpty {
+            throw GRPCError.InvalidState("Parece que no hay podcasts...")
+        }
         
         return list
     }
