@@ -4,6 +4,7 @@ import "google/protobuf/empty.proto";
 
 service PodcastService {
     rpc FetchPodcasts (google.protobuf.Empty) returns (PodcastList) {}
+    rpc FilterPodcasts (PodcastRequest) return (PodcastList) {}
 }
 
 message Podcast {
@@ -17,4 +18,8 @@ message Podcast {
 
 message PodcastList {
     repeated Podcast podcasts = 1;
+}
+
+message PodcastRequest {
+    string title = 1;
 }
