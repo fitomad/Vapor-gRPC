@@ -35,6 +35,11 @@ internal protocol PodcastServiceClientProtocol: GRPCClient {
     _ request: SwiftProtobuf.Google_Protobuf_Empty,
     callOptions: CallOptions?
   ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, PodcastList>
+
+  func filterPodcasts(
+    _ request: PodcastRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<PodcastRequest, PodcastList>
 }
 
 extension PodcastServiceClientProtocol {
@@ -57,6 +62,24 @@ extension PodcastServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeFetchPodcastsInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to FilterPodcasts
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to FilterPodcasts.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func filterPodcasts(
+    _ request: PodcastRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<PodcastRequest, PodcastList> {
+    return self.makeUnaryCall(
+      path: PodcastServiceClientMetadata.Methods.filterPodcasts.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFilterPodcastsInterceptors() ?? []
     )
   }
 }
@@ -130,6 +153,11 @@ internal protocol PodcastServiceAsyncClientProtocol: GRPCClient {
     _ request: SwiftProtobuf.Google_Protobuf_Empty,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<SwiftProtobuf.Google_Protobuf_Empty, PodcastList>
+
+  func makeFilterPodcastsCall(
+    _ request: PodcastRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<PodcastRequest, PodcastList>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -153,6 +181,18 @@ extension PodcastServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeFetchPodcastsInterceptors() ?? []
     )
   }
+
+  internal func makeFilterPodcastsCall(
+    _ request: PodcastRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<PodcastRequest, PodcastList> {
+    return self.makeAsyncUnaryCall(
+      path: PodcastServiceClientMetadata.Methods.filterPodcasts.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFilterPodcastsInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -166,6 +206,18 @@ extension PodcastServiceAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeFetchPodcastsInterceptors() ?? []
+    )
+  }
+
+  internal func filterPodcasts(
+    _ request: PodcastRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> PodcastList {
+    return try await self.performAsyncUnaryCall(
+      path: PodcastServiceClientMetadata.Methods.filterPodcasts.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeFilterPodcastsInterceptors() ?? []
     )
   }
 }
@@ -193,6 +245,9 @@ internal protocol PodcastServiceClientInterceptorFactoryProtocol: GRPCSendable {
 
   /// - Returns: Interceptors to use when invoking 'fetchPodcasts'.
   func makeFetchPodcastsInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, PodcastList>]
+
+  /// - Returns: Interceptors to use when invoking 'filterPodcasts'.
+  func makeFilterPodcastsInterceptors() -> [ClientInterceptor<PodcastRequest, PodcastList>]
 }
 
 internal enum PodcastServiceClientMetadata {
@@ -201,6 +256,7 @@ internal enum PodcastServiceClientMetadata {
     fullName: "PodcastService",
     methods: [
       PodcastServiceClientMetadata.Methods.fetchPodcasts,
+      PodcastServiceClientMetadata.Methods.filterPodcasts,
     ]
   )
 
@@ -208,6 +264,12 @@ internal enum PodcastServiceClientMetadata {
     internal static let fetchPodcasts = GRPCMethodDescriptor(
       name: "FetchPodcasts",
       path: "/PodcastService/FetchPodcasts",
+      type: GRPCCallType.unary
+    )
+
+    internal static let filterPodcasts = GRPCMethodDescriptor(
+      name: "FilterPodcasts",
+      path: "/PodcastService/FilterPodcasts",
       type: GRPCCallType.unary
     )
   }
@@ -218,6 +280,8 @@ internal protocol PodcastServiceProvider: CallHandlerProvider {
   var interceptors: PodcastServiceServerInterceptorFactoryProtocol? { get }
 
   func fetchPodcasts(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<PodcastList>
+
+  func filterPodcasts(request: PodcastRequest, context: StatusOnlyCallContext) -> EventLoopFuture<PodcastList>
 }
 
 extension PodcastServiceProvider {
@@ -241,6 +305,15 @@ extension PodcastServiceProvider {
         userFunction: self.fetchPodcasts(request:context:)
       )
 
+    case "FilterPodcasts":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<PodcastRequest>(),
+        responseSerializer: ProtobufSerializer<PodcastList>(),
+        interceptors: self.interceptors?.makeFilterPodcastsInterceptors() ?? [],
+        userFunction: self.filterPodcasts(request:context:)
+      )
+
     default:
       return nil
     }
@@ -257,6 +330,11 @@ internal protocol PodcastServiceAsyncProvider: CallHandlerProvider {
 
   @Sendable func fetchPodcasts(
     request: SwiftProtobuf.Google_Protobuf_Empty,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> PodcastList
+
+  @Sendable func filterPodcasts(
+    request: PodcastRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> PodcastList
 }
@@ -289,6 +367,15 @@ extension PodcastServiceAsyncProvider {
         wrapping: self.fetchPodcasts(request:context:)
       )
 
+    case "FilterPodcasts":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<PodcastRequest>(),
+        responseSerializer: ProtobufSerializer<PodcastList>(),
+        interceptors: self.interceptors?.makeFilterPodcastsInterceptors() ?? [],
+        wrapping: self.filterPodcasts(request:context:)
+      )
+
     default:
       return nil
     }
@@ -302,6 +389,10 @@ internal protocol PodcastServiceServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'fetchPodcasts'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeFetchPodcastsInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, PodcastList>]
+
+  /// - Returns: Interceptors to use when handling 'filterPodcasts'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeFilterPodcastsInterceptors() -> [ServerInterceptor<PodcastRequest, PodcastList>]
 }
 
 internal enum PodcastServiceServerMetadata {
@@ -310,6 +401,7 @@ internal enum PodcastServiceServerMetadata {
     fullName: "PodcastService",
     methods: [
       PodcastServiceServerMetadata.Methods.fetchPodcasts,
+      PodcastServiceServerMetadata.Methods.filterPodcasts,
     ]
   )
 
@@ -317,6 +409,12 @@ internal enum PodcastServiceServerMetadata {
     internal static let fetchPodcasts = GRPCMethodDescriptor(
       name: "FetchPodcasts",
       path: "/PodcastService/FetchPodcasts",
+      type: GRPCCallType.unary
+    )
+
+    internal static let filterPodcasts = GRPCMethodDescriptor(
+      name: "FilterPodcasts",
+      path: "/PodcastService/FilterPodcasts",
       type: GRPCCallType.unary
     )
   }

@@ -23,6 +23,4 @@ struct CreatePodcastDTO: AsyncMigration {
             .field("artist", .string, .required)
             .create()
     }
-    
-    
 }

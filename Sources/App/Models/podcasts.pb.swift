@@ -54,9 +54,24 @@ struct PodcastList {
   init() {}
 }
 
+struct PodcastRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var title: String = String()
+
+  var includeAdultContent: Bool = false
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Podcast: @unchecked Sendable {}
 extension PodcastList: @unchecked Sendable {}
+extension PodcastRequest: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -150,6 +165,44 @@ extension PodcastList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
 
   static func ==(lhs: PodcastList, rhs: PodcastList) -> Bool {
     if lhs.podcasts != rhs.podcasts {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension PodcastRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "PodcastRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "title"),
+    2: .same(proto: "includeAdultContent"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.title) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.includeAdultContent) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 1)
+    }
+    if self.includeAdultContent != false {
+      try visitor.visitSingularBoolField(value: self.includeAdultContent, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: PodcastRequest, rhs: PodcastRequest) -> Bool {
+    if lhs.title != rhs.title {return false}
+    if lhs.includeAdultContent != rhs.includeAdultContent {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

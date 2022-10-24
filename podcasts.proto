@@ -3,8 +3,8 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 
 service PodcastService {
-    rpc FetchPodcasts (google.protobuf.Empty) returns (PodcastList) {}
-    rpc FilterPodcasts (PodcastRequest) return (PodcastList) {}
+    rpc FetchPodcasts (google.protobuf.Empty) returns (PodcastList);
+    rpc FilterPodcasts (PodcastRequest) returns (PodcastList);
 }
 
 message Podcast {
@@ -22,8 +22,5 @@ message PodcastList {
 
 message PodcastRequest {
     string title = 1;
-<<<<<<< HEAD
+    bool includeAdultContent = 2;
 }
-=======
-}
->>>>>>> 5a46776fdf5f4b1fca86d3c0d627f91360086f6e

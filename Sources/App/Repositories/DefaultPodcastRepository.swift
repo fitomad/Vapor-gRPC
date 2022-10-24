@@ -21,16 +21,30 @@ final class DefaultPodcastRepository {
     func fetchPodcasts() async throws -> [Podcast] {
         let repositoryPodcasts = try await PodcastDTO.query(on: database).all()
         
-        let podcasts = repositoryPodcasts.map({ repositoryPodcast in
-            var podcast = Podcast()
-            
-            podcast.title = repositoryPodcast.name
-            podcast.artist = repositoryPodcast.artistName
-            podcast.artworkURL = repositoryPodcast.artworkHeroURL
-            
-            return podcast
-        })
+        let podcasts = repositoryPodcasts.map(mapRepositoryPodcast)
         
         return podcasts
+    }
+    
+    func fetchPodcasts(filteredBy term: String) async throws -> [Podcast] {
+        let repositoryPodcasts = try await PodcastDTO.query(on: database)
+            .filter(\.$name ~~ term)
+            .all()
+        
+        let podcasts = repositoryPodcasts.map(mapRepositoryPodcast)
+        
+        return podcasts
+    }
+}
+
+extension DefaultPodcastRepository {
+    private func mapRepositoryPodcast(_ repositoryPodcast: PodcastDTO) -> Podcast {
+        var podcast = Podcast()
+        
+        podcast.title = repositoryPodcast.name
+        podcast.artist = repositoryPodcast.artistName
+        podcast.artworkURL = repositoryPodcast.artworkHeroURL
+        
+        return podcast
     }
 }

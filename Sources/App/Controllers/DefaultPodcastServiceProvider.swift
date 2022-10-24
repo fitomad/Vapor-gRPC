@@ -13,9 +13,8 @@ import SwiftProtobuf
 import NIOCore
 
 final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
-    var app: Application
-    
-    let repository: DefaultPodcastRepository
+    private var app: Application
+    private let repository: DefaultPodcastRepository
       
     init(_ app: Application) {
         self.app = app
@@ -31,6 +30,15 @@ final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
         if list.podcasts.isEmpty {
             throw GRPCError.InvalidState("Parece que no hay podcasts...")
         }
+        
+        return list
+    }
+    
+    func filterPodcasts(request: PodcastRequest, context: GRPCAsyncServerCallContext) async throws -> PodcastList {
+        let podcasts = try await repository.fetchPodcasts(filteredBy: request.title)
+        
+        var list = PodcastList()
+        list.podcasts = podcasts
         
         return list
     }
