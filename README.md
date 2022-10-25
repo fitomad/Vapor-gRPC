@@ -29,6 +29,8 @@ brew install grpc-swift
 
 ## Añadiendo soporte gRPC al servidor Vapor
 
+Abrimos el archivo de definición de paquete de nuestro proyecto `Package.swift` y añadimos las siguientes dos líneas en sus secciones correspondientes
+
 ```swift
 .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.0.0")
 ```

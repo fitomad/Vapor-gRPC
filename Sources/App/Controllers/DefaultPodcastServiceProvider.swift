@@ -15,7 +15,7 @@ import NIOCore
 final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
     private var app: Application
     private let repository: DefaultPodcastRepository
-      
+
     init(_ app: Application) {
         self.app = app
         self.repository = DefaultPodcastRepository(for: app.db)
@@ -39,6 +39,10 @@ final class DefaultPodcastServiceProvider: PodcastServiceAsyncProvider {
         
         var list = PodcastList()
         list.podcasts = podcasts
+        
+        if list.podcasts.isEmpty {
+            throw GRPCError.InvalidState("Parece que no hay podcasts...")
+        }
         
         return list
     }
