@@ -1,7 +1,7 @@
-# Vapor-gRPC
+# Vapor & gRPC
 Uso del protocolo gRPC con el servidor Vapor
 =======
-# Vapor & gRPC
+
 Repositorio con el proyecto de ejemplo para la charla de Globant sonre el protocolo de comunicación gRPC con el servidor Vapor.
 
 En este caso vamos a desarrollar un servicio que devuelve una lista de podcasts almacenados en una base de datos Mongodb que hemos extraído del servicio de marketing de Apple.
