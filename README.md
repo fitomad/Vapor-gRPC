@@ -1,6 +1,4 @@
-# Vapor & gRPC
-Uso del protocolo gRPC con el servidor Vapor
-=======
+# Uso de gRPC con el servidor Vapor
 
 Repositorio con el proyecto de ejemplo para la charla de Globant sonre el protocolo de comunicación gRPC con el servidor Vapor.
 
