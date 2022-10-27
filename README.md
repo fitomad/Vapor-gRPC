@@ -174,4 +174,4 @@ Si queréis leer más acerca de gRPC, Protocol Buffers, Vapor y las herramientas
 
 ## Contacto
 
-Podeís poneros en contacto a través de mi perfil en [LinkedIn](www.linkedin.com/in/adolfo-vera) 
+Podeís poneros en contacto a través de mi perfil en [LinkedIn](https://www.linkedin.com/in/adolfo-vera) 
