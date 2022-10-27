@@ -1,8 +1,8 @@
 # Uso de gRPC con el servidor Vapor
 
-Repositorio con el proyecto de ejemplo para la charla de Globant sonre el protocolo de comunicación gRPC con el servidor Vapor.
+Repositorio con el proyecto de ejemplo para la charla encuadrada en la UI Talks de Globant sobre el protocolo de comunicación gRPC con el servidor Vapor.
 
-En este caso vamos a desarrollar un servicio que devuelve una lista de podcasts almacenados en una base de datos Mongodb que hemos extraído del servicio de marketing de Apple.
+Como ejemplo vamos a desarrollar un servicio que devuelve una lista de podcasts almacenados en una base de datos Mongodb que hemos extraído de las [herramientas de marketing de Apple](https://rss.applemarketingtools.com).
 
 ## Requisitos
 
@@ -65,3 +65,47 @@ docker run --name mongodb -d mongo
 ```
 
 Y listo, ahora podemos arrancar la instanacia de Mongodb desde el cliente Docker cuando lo necesitemos.
+
+## Arrancando Vapor
+
+Nos teneos que situar en el directorio raiz de nuestro proyecto de ejemplo y desde la Terminal ejecutar el siguiente comando
+
+```bash
+vapor run
+```
+
+Si queremos levantar el servicio en alguno de los entornos predefinidos usando su archivo de variables asociado podemos hacerlo usando las siguientes líneas de comando
+
+Para el entorno de **pruebas** y su archivo asociado `.env.testing`
+```bash
+vapor run --env testing
+```
+
+Entorno de **desarrollo** usando el archivo `.env.development`
+```bash
+vapor run --env development
+```
+
+Y el entorno de **producción** con las variables definidas en `.env.production`
+```bash
+vapor run --env production
+```
+
+## Enlaces de interés
+
+Si queréis leer más acerca de gRPC, Protocol Buffers, Vapor y las herramientas que hemos usando durante la charla os animamos a visitar estos enlaces
+
+### gRPC
+* Sitio web oficial
+* Como Netflix usa gRPC (Parte I y II)
+
+### Protocol Buffers
+
+### Vapor
+
+### Herramientas
+
+* Homebrew
+* Docker
+* MongoDB
+* Postman
