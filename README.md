@@ -89,6 +89,8 @@ Ahora pulsamos en el botón **Create Database**. Ya tenemos lista nuestra base d
 
 #### Cargando los datos
 
+**Podeís seguir todos los pasos necesarios en el vídeo incluido en la carpeta `MongoDB HowTo Video`**
+
 Buscamos nuestra base de datos en la lista de bases de datos disponibles y pulsamos sobre su nombre, lo que nos llevará a la pantalla donde veremos las colección disponibles para esta base de datos, donde veremos la colección que acabamos de crear.
 
 Pulsamos sobre el nombre de la colección (`PodcastCollection`) para ver los detalles y datos contenidos en esta colección.
@@ -96,6 +98,8 @@ Pulsamos sobre el nombre de la colección (`PodcastCollection`) para ver los det
 Buscamos el botón con el título **Add data** y lo pulsamos. En el menú desplegable seleccionamos la opción **Import file**
 
 En la ventana emergente que nos aparece seleccionamos el archivo JSON con los datos de podcasts y en Select Input Type File marcamos la opción JSON.
+
+*Los archivo de datos JSON los podéis encontrar en la carpeta `MongoDB PreLoad Data`*
 
 Pulsamos sobre el botón **Import** y listo, ya tenemos cargado nuestro primero archivo de datos de podcasts.
 
@@ -123,6 +127,21 @@ Y el entorno de **producción** con las variables definidas en `.env.production`
 ```bash
 vapor run --env production
 ```
+
+## Probando con Postman
+
+Para configurar Postman podeís seguir el vídeo incluido en el repositorio dentro de la carpeta **Postman How-To Video**. 
+
+Lo que si que necesitáis es registraros en Postman para poder crear *Workspaces*.
+
+Petición a `FetchPodcasts`
+![]()
+
+Petición a `FilterPodcast`
+![]()
+
+Petición a `FilterPoscast` que devuelve un error con mensaje personalizado
+![]()
 
 ## Enlaces de interés
 
@@ -152,3 +171,7 @@ Si queréis leer más acerca de gRPC, Protocol Buffers, Vapor y las herramientas
 * [MongoDB](https://www.mongodb.com/try/download/community) y su [image](https://www.mongodb.com/compatibility/docker) Docker
 * Mongo GUI [Compass](https://www.mongodb.com/products/compass) 
 * [Postman](https://www.postman.com/downloads/)
+
+## Contacto
+
+Podeís poneros en contacto a través de mi perfil en [LinkedIn](www.linkedin.com/in/adolfo-vera) 
