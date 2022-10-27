@@ -135,13 +135,13 @@ Para configurar Postman podeís seguir el vídeo incluido en el repositorio dent
 Lo que si que necesitáis es registraros en Postman para poder crear *Workspaces*.
 
 Petición a `FetchPodcasts`
-![]()
+![](https://github.com/fitomad/Vapor-gRPC/blob/development/Postman%20HowTo%20Video/Postman-Fetch-Operation.png?raw=true)
 
 Petición a `FilterPodcast`
-![]()
+![](https://github.com/fitomad/Vapor-gRPC/blob/development/Postman%20HowTo%20Video/Postman-Filter-Operation.png?raw=true)
 
 Petición a `FilterPoscast` que devuelve un error con mensaje personalizado
-![]()
+![](https://github.com/fitomad/Vapor-gRPC/blob/development/Postman%20HowTo%20Video/Postman-gRPC-Custom-Error.png?raw=true)
 
 ## Enlaces de interés
 
